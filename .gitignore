@@ -9,3 +9,8 @@ ckpt/
 trace/*.log
 trace/*.csv
 *.png
+# trace artifacts
+trace/*.log
+trace/*.pid
+trace/*.csv
+trace/*.start
