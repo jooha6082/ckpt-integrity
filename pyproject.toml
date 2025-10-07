@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ckpt-integrity"
+version = "0.1.0"
+description = "Checkpoint integrity: training, injection, guard, and tracing."
+authors = [{name = "juha jeon"}]
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+  "torch>=2.3",
+  "torchvision>=0.18",
+  "tqdm>=4.66",
+  "pandas>=2.2",
+  "matplotlib>=3.8",
+  "psutil>=5.9",
+  "xxhash>=3.4",
+]
+
+[project.scripts]
+ckpt-integrity-train = "ckpt_integrity.training.train:main"
+ckpt-integrity-guard = "ckpt_integrity.guard.verify_and_watch:main"
+ckpt-integrity-inject-flip = "ckpt_integrity.inject.flip_bits:main"
+ckpt-integrity-inject-trunc = "ckpt_integrity.inject.truncate:main"
+ckpt-integrity-parse-iostat = "ckpt_integrity.trace.parse_iostat:main"
+ckpt-integrity-plot-iostat = "ckpt_integrity.trace.plot_iostat:main"

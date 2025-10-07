@@ -1,0 +1,36 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Train (CPU, 2 epochs)",
+      "type": "shell",
+      "command": "ckpt-integrity-train --epochs 2 --ckpt-dir ckpt --device cpu"
+    },
+    {
+      "label": "Guard (watch ckpt/)",
+      "type": "shell",
+      "command": "ckpt-integrity-guard --watch ckpt --interval 1.0",
+      "isBackground": true
+    },
+    {
+      "label": "Inject: bitflip epoch_1",
+      "type": "shell",
+      "command": "ckpt-integrity-inject-flip ckpt/epoch_1.pt --nbytes 64"
+    },
+    {
+      "label": "Inject: truncate epoch_1",
+      "type": "shell",
+      "command": "ckpt-integrity-inject-trunc ckpt/epoch_1.pt --tail 4096"
+    },
+    {
+      "label": "Trace macOS (iostat)",
+      "type": "shell",
+      "command": "bash scripts/trace_iostat_mac.sh"
+    },
+    {
+      "label": "Trace Linux (iostat)",
+      "type": "shell",
+      "command": "bash scripts/trace_iostat_linux.sh"
+    }
+  ]
+}

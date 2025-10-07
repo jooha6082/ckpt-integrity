@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+.venv/
+dist/
+build/
+*.egg-info/
+data/
+ckpt/
+trace/*.log
+trace/*.csv
+*.png

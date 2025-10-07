@@ -1,0 +1,46 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug: train",
+      "type": "python",
+      "request": "launch",
+      "module": "ckpt_integrity.training.train",
+      "args": [
+        "--epochs",
+        "2",
+        "--ckpt-dir",
+        "ckpt",
+        "--device",
+        "cpu"
+      ],
+      "console": "integratedTerminal",
+      "justMyCode": true
+    },
+    {
+      "name": "Debug: guard watch",
+      "type": "python",
+      "request": "launch",
+      "module": "ckpt_integrity.guard.verify_and_watch",
+      "args": [
+        "--watch",
+        "ckpt",
+        "--interval",
+        "1.0"
+      ],
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Debug: inject flip",
+      "type": "python",
+      "request": "launch",
+      "module": "ckpt_integrity.inject.flip_bits",
+      "args": [
+        "ckpt/epoch_1.pt",
+        "--nbytes",
+        "64"
+      ],
+      "console": "integratedTerminal"
+    }
+  ]
+}

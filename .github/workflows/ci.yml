@@ -1,0 +1,20 @@
+name: ci
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: python -m pip install --upgrade pip
+      - run: pip install -e .
+      - name: Smoke train (fake data)
+        run: ckpt-integrity-train --epochs 1 --ckpt-dir ckpt --device cpu --fake-data
+      - name: Check artifacts
+        run: test -f ckpt/epoch_1.pt && echo "OK: checkpoint created"

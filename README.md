@@ -1,0 +1,28 @@
+# ckpt-integrity
+
+Minimal tooling to **save, verify, and recover** training checkpoints.
+
+- Training (ResNet18 on CIFAR‑10) with periodic checkpoints
+- SHA‑256 metadata per checkpoint
+- Fault injection: bit‑flip / truncate
+- Guard: verify once or watch a directory and rollback to `last-good.pt`
+- Optional I/O logging via `iostat`
+
+## Quickstart
+```bash
+python3 -m venv .venv && source .venv/bin/activate
+pip install --upgrade pip
+pip install -e .
+
+# Baseline (CPU, 2 epochs)
+ckpt-integrity-train --epochs 2 --ckpt-dir ckpt --device cpu
+
+# Fault & guard
+ckpt-integrity-inject-flip ckpt/epoch_1.pt --nbytes 64
+ckpt-integrity-guard --verify ckpt/epoch_1.pt --last-good ckpt/last-good.pt
+```
+
+## Notes
+- `--fake-data` avoids downloading CIFAR‑10 for a smoke run.
+- `ckpt/*.meta.json` stores the SHA‑256 and step.
+- Use `ckpt-integrity-guard --watch ckpt` to keep checkpoints sane during long runs.
