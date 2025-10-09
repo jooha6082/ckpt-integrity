@@ -4,14 +4,25 @@
 __pycache__/
 *.pyc
 
-# checkpoints (tracked 안 함)
+# checkpoints
 ckpt/*.pt
 ckpt/*.meta.json
 
-# local traces (원하면 iostat.csv는 추적)
+# local traces
 trace/*.log
 trace/*.pid
-# trace/iostat.csv     # <- 만약 원시 CSV도 커밋하기 싫으면 주석 해제
-# trace/event_io.csv   # <- 결과물도 커밋 안 하려면 주석 해제
+# trace/iostat.csv
+# trace/event_io.csv
 # trace/events_summary.txt
 # trace/fig_*.png
+
+dist/
+build/
+*.egg-info/
+data/
+ckpt/
+
+*.png
+# trace artifacts
+trace/*.csv
+trace/*.start
