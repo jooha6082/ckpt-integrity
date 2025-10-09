@@ -1,16 +1,17 @@
+# venv and cache
+.venv/
+.venv-1/
 __pycache__/
 *.pyc
-.venv/
-dist/
-build/
-*.egg-info/
-data/
-ckpt/
-trace/*.log
-trace/*.csv
-*.png
-# trace artifacts
+
+# checkpoints (tracked 안 함)
+ckpt/*.pt
+ckpt/*.meta.json
+
+# local traces (원하면 iostat.csv는 추적)
 trace/*.log
 trace/*.pid
-trace/*.csv
-trace/*.start
+# trace/iostat.csv     # <- 만약 원시 CSV도 커밋하기 싫으면 주석 해제
+# trace/event_io.csv   # <- 결과물도 커밋 안 하려면 주석 해제
+# trace/events_summary.txt
+# trace/fig_*.png

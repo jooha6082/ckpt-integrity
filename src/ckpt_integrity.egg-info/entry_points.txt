@@ -1,0 +1,7 @@
+[console_scripts]
+ckpt-integrity-guard = ckpt_integrity.guard.verify_and_watch:main
+ckpt-integrity-inject-flip = ckpt_integrity.inject.flip_bits:main
+ckpt-integrity-inject-trunc = ckpt_integrity.inject.truncate:main
+ckpt-integrity-parse-iostat = ckpt_integrity.trace.parse_iostat:main
+ckpt-integrity-plot-iostat = ckpt_integrity.trace.plot_iostat:main
+ckpt-integrity-train = ckpt_integrity.training.train:main

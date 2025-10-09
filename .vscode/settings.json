@@ -4,5 +4,6 @@
   "files.trimTrailingWhitespace": true,
   "editor.formatOnSave": true,
   "terminal.integrated.cwd": "${workspaceFolder}",
-  "git.confirmSync": false
+  "git.confirmSync": false,
+  "python-envs.pythonProjects": []
 }

@@ -1,0 +1,7 @@
+torch>=2.3
+torchvision>=0.18
+tqdm>=4.66
+pandas>=2.2
+matplotlib>=3.8
+psutil>=5.9
+xxhash>=3.4

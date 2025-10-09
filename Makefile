@@ -1,28 +1,36 @@
-.PHONY: venv install train demo guard trace-mac trace-linux blktrace clean
+CKPT_DIR := ckpt
+TRACE_DIR := trace
 
-venv:
-	python3 -m venv .venv
-
-install:
-	. .venv/bin/activate && pip install --upgrade pip && pip install -e .
+.PHONY: train watch verify1 inject_flip summarize io_join clean
 
 train:
-	. .venv/bin/activate && ckpt-integrity-train --epochs 2 --ckpt-dir ckpt --device cpu
+	# quick CPU run (fake data to avoid download)
+	ckpt-integrity-train --epochs 3 --ckpt-dir $(CKPT_DIR) --device cpu --fake-data
 
-demo:
-	. .venv/bin/activate && bash scripts/demo_fault.sh
+watch:
+	# guard directory watcher (1s poll)
+	ckpt-integrity-guard --watch $(CKPT_DIR) --last-good $(CKPT_DIR)/last-good.pt
 
-guard:
-	. .venv/bin/activate && ckpt-integrity-guard --watch ckpt --interval 1.0
+verify1:
+	# sanity check
+	ckpt-integrity-guard --verify $(CKPT_DIR)/epoch_1.pt --last-good $(CKPT_DIR)/last-good.pt
 
-trace-mac:
-	bash scripts/trace_iostat_mac.sh
+inject_flip:
+	# flip a few bytes after epoch_1 is fully written
+	f=$(CKPT_DIR)/epoch_1.pt; \
+	while [ ! -f "$$f" ]; do sleep 0.2; done; \
+	s1=0; s2=1; while [ "$$s1" != "$$s2" ]; do s1=$$(stat -f%z "$$f" 2>/dev/null || stat -c%s "$$f"); sleep 0.2; s2=$$(stat -f%z "$$f" 2>/dev/null || stat -c%s "$$f"); done; \
+	ckpt-integrity-inject-flip "$$f" --nbytes 128
 
-trace-linux:
-	bash scripts/trace_iostat_linux.sh
+summarize:
+	# ckpt/events.csv -> trace/events_summary.txt
+	python tools/events_summary.py --events $(CKPT_DIR)/events.csv --out $(TRACE_DIR)/events_summary.txt
+	@echo "wrote $(TRACE_DIR)/events_summary.txt"
 
-blktrace:
-	bash scripts/trace_blktrace_linux.sh
+io_join:
+	# events(ok=False) ±5s join with iostat -> trace/event_io.csv
+	python tools/event_io_join.py --events $(CKPT_DIR)/events.csv --iostat $(TRACE_DIR)/iostat.csv --window 5 --out $(TRACE_DIR)/event_io.csv
+	@head -5 $(TRACE_DIR)/event_io.csv || true
 
 clean:
-	rm -rf ckpt/*.pt ckpt/*.json trace/*.log trace/*.csv *.png
+	rm -f $(CKPT_DIR)/epoch_*.pt $(CKPT_DIR)/epoch_*.meta.json $(CKPT_DIR)/last-good.pt
