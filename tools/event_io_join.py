@@ -15,12 +15,6 @@ Input:
 Output:
   trace/event_io.csv   (columns: event_ts, io_avg_MBps_pmW, mode)
 
-Typical usage:
-  python tools/event_io_join.py \
-      --events ckpt/events.csv \
-      --iostat trace/iostat.csv \
-      --window 5 \
-      --out trace/event_io.csv
 """
 
 import argparse

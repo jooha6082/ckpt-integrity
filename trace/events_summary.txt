@@ -1,1 +1,40 @@
-events=22, detected=8, verify_ms_avg_all=54.7, verify_ms_avg_detected=51.6, rollback_ms_avg_detected=63.0
+=== FTL/Firmware Event Summary ===
+
+[Totals]
+event              count   sum_delay_ms  sum_retries
+----------------------------------------------------
+ecc_bypass             2              0            0
+ftl_map_corrupt        1              0            2
+gc_delay               2             65            0
+----------------------------------------------------
+TOTAL                  5             65            2
+
+[Per-epoch windows]
+
+- Window #0  epoch=4 -> epoch=5  range=[0.000000, 794.024424), dur=794.024424 s
+  event              count   sum_delay_ms  sum_retries
+  ecc_bypass             1              0            0
+  ftl_map_corrupt        0              0            0
+  gc_delay               1             40            0
+  TOTAL                  2             40            0
+
+- Window #1  epoch=5 -> epoch=1  range=[794.024424, 8244.467291), dur=7450.442867 s
+  event              count   sum_delay_ms  sum_retries
+  ecc_bypass             0              0            0
+  ftl_map_corrupt        1              0            2
+  gc_delay               0              0            0
+  TOTAL                  1              0            2
+
+- Window #2  epoch=1 -> epoch=2  range=[8244.467291, 8692.466369), dur=447.999078 s
+  event              count   sum_delay_ms  sum_retries
+  ecc_bypass             0              0            0
+  ftl_map_corrupt        0              0            0
+  gc_delay               1             25            0
+  TOTAL                  1             25            0
+
+- Window #3  epoch=2 -> (end)  range=[8692.466369, ...), dur=... s
+  event              count   sum_delay_ms  sum_retries
+  ecc_bypass             1              0            0
+  ftl_map_corrupt        0              0            0
+  gc_delay               0              0            0
+  TOTAL                  1              0            0

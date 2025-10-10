@@ -8,9 +8,6 @@ Input:
 Output (default):
   - trace/events_summary.txt  (one line with KPIs)
 
-Notes:
-  - Designed to be boring and reliable.
-  - Handles missing columns gracefully.
 """
 
 import argparse

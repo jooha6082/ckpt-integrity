@@ -1,9 +1,3 @@
-#!/usr/bin/env python3
-# Minimal iostat log → CSV parser for macOS/Linux.
-# - Handles macOS "wide" layout (device names line → header line → numeric line)
-# - Handles Linux "Device:" vertical layout
-# - No timestamps in raw iostat: we emit a monotonic 'sample' index per 1s tick.
-
 import argparse, csv, re, sys
 from typing import List, Optional
 
