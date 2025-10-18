@@ -1,0 +1,15 @@
+.venv/
+__pycache__/
+*.pyc
+trace/*.log
+trace/*.raw
+trace/*.tmp
+trace/ckpts_runs_torch/
+trace/ckpts/
+trace/ckpts_torch/
+trace/ckpts_traced/
+trace/groups/
+trace/guard/
+trace/sys/
+figures/
+.DS_Store
