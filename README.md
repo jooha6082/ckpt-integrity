@@ -1,8 +1,6 @@
-# Crash-Consistent AI Checkpoints (macOS/APFS)
+# Crash-Consistent Checkpointing for AI Training (macOS/APFS)
 
-**Mini‑research project for AI Infrastructure Reliability — with emphasis on Storage & Filesystem integrity.**  
-This work explores *how AI training checkpoints can remain crash‑consistent, detectable for corruption, and recoverable automatically*.  
-It provides a reproducible, small‑scale experiment that mirrors large‑scale reliability problems in data‑intensive AI systems.
+Mini research project on AI infrastructure reliability with a focus on strage and filesystem integrity. It explores how AI training checkpoints can remain crash-consistent, detect corruptions, and recover automatically. The project provides a reproducible, small-scale experiment that reflects key reliability problems in data-intensive AI systems.
 
 ---
 
