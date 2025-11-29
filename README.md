@@ -51,10 +51,10 @@ make rollback_latest                   # recovery demo
 ---
 
 ## 🧠 Summary
-- **Problem:** AI training checkpoints can be *torn* by crashes or *silently corrupted* by storage faults.  
-- **Method:** compare unsafe vs. atomic write protocols; add SHA‑256 integrity guard and rollback.  
-- **Evaluation:** measure latency, robustness, and detection coverage under injected faults.  
-- **Result:** atomic_dirsync fully prevents corruption, adding ~40–70 % latency overhead versus unsafe writes.
+- **Problem:** AI training checkpoints can be torn by crashes or silently corrupted by storage faults.  
+- **Method:** Implemented unsafe, atomic_nodirsync, and atomic_dirsync checkpoint protocols on macOS/APFS, plus a SHA-256 based integrity guard and automaatic rollback. 
+- **Evaluation:** microbenchmark per-checkpoint latency, inject process-crash failures into unsafe group checkpoints, and inject bitflip/zerorange/truncate faults into atomic checkpoints to measure detection coverage.
+- **Result:** Under crash injection, unsafe groups had 0% valid recoveries (0/430) while atomic groups had 100% valid checkpoints in the no-crash baseline (400/400). The atomic_dirsync protocol raises per-checkpoint latency by about 84% at the median and about 571% at the tail versus unsafe, and the integrity guard detects 99.8-100% of injected corruptions with zero false positive (0/400).
 
 ---
 
